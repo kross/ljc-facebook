@@ -38,10 +38,9 @@ public class FacebookController {
         checkSignature(sig, parts[1]);
         String data = new String(decoder.decode(parts[1].getBytes()));
         
-
-		if (data.contains("user_id")) {
-			// This means the user has already authenticated the app, you can get the id & Access token
-			JSONObject sReq = new JSONObject(data);
+        JSONObject sReq = new JSONObject(data);
+		if (sReq.has("user_id")) {
+			// This means the user has already authenticated the app, you can get the user id & Access token
 			model.addAttribute("accessToken", sReq.getString("oauth_token"));
 			return "facebook";
 		} else {
